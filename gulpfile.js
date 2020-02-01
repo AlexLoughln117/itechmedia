@@ -23,7 +23,6 @@ var gulpif       = require( 'gulp-if' );
 
 // Browers related plugins
 var browserSync  = require( 'browser-sync' ).create();
-const phpConnect = require('gulp-connect-php');
 
 // Project related variables
 var styleSRC     = './src/scss/style.scss';
@@ -57,20 +56,6 @@ function browser_sync() {
 			baseDir: './dist/'
 		}
 	});
-}
-
-//Php connect
-function connectsync() {
-    phpConnect.server({
-        // a standalone PHP server that browsersync connects to via proxy
-        port: 8000,
-        keepalive: true,
-        base: "dist"
-    }, function (){
-        browsersync({
-            proxy: '127.0.0.1:8000'
-        });
-    });
 }
 
 function reload(done) {
@@ -143,19 +128,6 @@ function watch_files() {
 	src(jsURL + 'main.min.js')
 		.pipe( notify({ message: 'Gulp is Watching, Happy Coding!' }) );
 }
-
-function connect_sync(){
-  connect.server({}, function (){
-   browserSync({
-     proxy: '127.0.0.1:8000'
-       });
-    });
-
-    gulp.watch('**/*.php').on('change', function () {
-      browserSync.reload();
-    });
-});
-
 
 task("css", css);
 task("js", js);
