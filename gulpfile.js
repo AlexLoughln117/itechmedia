@@ -23,6 +23,7 @@ var gulpif       = require( 'gulp-if' );
 
 // Browers related plugins
 var browserSync  = require( 'browser-sync' ).create();
+var connect = require('gulp-connect-php');
 
 // Project related variables
 var styleSRC     = './src/scss/style.scss';
