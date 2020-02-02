@@ -42,12 +42,15 @@ var fontsURL     = './dist/fonts/';
 
 var htmlSRC     = './src/**/*.html';
 var htmlURL     = './dist/';
+var phpSRC      = './src/**/*.php';
+var phpURL      = './dist/';
 
 var styleWatch   = './src/scss/**/*.scss';
 var jsWatch      = './src/js/**/*.js';
 var imgWatch     = './src/images/**/*.*';
 var fontsWatch   = './src/fonts/**/*.*';
 var htmlWatch    = './src/**/*.html';
+var phpWatch    = './src/**/*.php';
 
 // Tasks
 function browser_sync() {
@@ -119,12 +122,17 @@ function html() {
 	return triggerPlumber( htmlSRC, htmlURL );
 };
 
+function php() {
+	return triggerPlumber( phpSRC, phpURL );
+};
+
 function watch_files() {
 	watch(styleWatch, series(css, reload));
 	watch(jsWatch, series(js, reload));
 	watch(imgWatch, series(images, reload));
 	watch(fontsWatch, series(fonts, reload));
 	watch(htmlWatch, series(html, reload));
+	watch(phpWatch, series(php, reload));
 	src(jsURL + 'main.min.js')
 		.pipe( notify({ message: 'Gulp is Watching, Happy Coding!' }) );
 }
@@ -134,5 +142,6 @@ task("js", js);
 task("images", images);
 task("fonts", fonts);
 task("html", html);
-task("default", parallel(css, js, images, fonts, html));
+task("php", php);
+task("default", parallel(css, js, images, fonts, html, php));
 task("watch", parallel(browser_sync, watch_files));
