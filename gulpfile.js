@@ -51,7 +51,7 @@ var jsWatch      = './src/js/**/*.js';
 var imgWatch     = './src/images/**/*.*';
 var fontsWatch   = './src/fonts/**/*.*';
 var htmlWatch    = './src/**/*.html';
-var phpWatch    = './src/**/*.php';
+var phpWatch    = './*.php';
 
 // Tasks
 // function browser_sync() {
@@ -66,11 +66,10 @@ function connectsync() {
     phpConnect.server({
         port: 8000,
         keepalive: true,
-        base: "./"
+        baseDir: './'
     }, function (){
         browserSync.init({
-            proxy: '127.0.0.1:8000',
-						baseDir: './dist/'
+            proxy: '127.0.0.1:8000'
         });
     });
 }
