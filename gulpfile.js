@@ -22,6 +22,7 @@ var options      = require( 'gulp-options' );
 var gulpif       = require( 'gulp-if' );
 
 // Browers related plugins
+const phpConnect = require('gulp-connect-php');
 var browserSync  = require( 'browser-sync' ).create();
 
 // Project related variables
@@ -53,12 +54,25 @@ var htmlWatch    = './src/**/*.html';
 var phpWatch    = './src/**/*.php';
 
 // Tasks
-function browser_sync() {
-	browserSync.init({
-		server: {
-			baseDir: './dist/'
-		}
-	});
+// function browser_sync() {
+// 	browserSync.init({
+// 		server: {
+// 			baseDir: './dist/'
+// 		}
+// 	});
+// }
+
+function connectsync() {
+    phpConnect.server({
+        port: 8000,
+        keepalive: true,
+        base: "./"
+    }, function (){
+        browserSync.init({
+            proxy: '127.0.0.1:8000',
+						baseDir: './dist/'
+        });
+    });
 }
 
 function reload(done) {
@@ -144,4 +158,4 @@ task("fonts", fonts);
 task("html", html);
 task("php", php);
 task("default", parallel(css, js, images, fonts, html, php));
-task("watch", parallel(browser_sync, watch_files));
+task("watch", parallel(connectsync, watch_files));
