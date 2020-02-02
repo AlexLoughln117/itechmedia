@@ -9,9 +9,6 @@
 </head>
 <body>
         <main>
-          <?php
-Echo "Hello, World!";
-?>
             <section class="calculator">
                 <div class="display">
                     <div class="display-inputs"></div>
